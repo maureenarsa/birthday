@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Birthday Pacil 🎉</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#f7f9fc; --bg2:#eef6fb;
+      --card:#0b2030;
+      --accent:#ff7b9c; --accent2:#ffd6a5;
+      --muted:rgba(255,255,255,0.85);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:#0b2030;-webkit-font-smoothing:antialiased}
+    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px}
+
+    /* Card */
+    .card{
+      width:980px;max-width:96%;border-radius:20px;display:flex;gap:24px;padding:28px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.86));
+      box-shadow:0 10px 40px rgba(2,6,23,0.08), 0 2px 10px rgba(11,32,48,0.06);
+      align-items:stretch;
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* Left scene */
+    .scene{flex:1;background:linear-gradient(180deg,#0b2030 0%, #061726 100%);border-radius:14px;padding:28px;color:var(--muted);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+    .glow{position:absolute;left:-10%;top:-20%;width:60%;height:60%;background:radial-gradient(circle at 30% 30%, rgba(255,123,123,0.08), transparent 30%);filter:blur(40px);pointer-events:none}
+    .title{font-size:44px;font-weight:700;margin:0 0 6px 0;background:linear-gradient(90deg,#ffd6d6,#ffc2e0);-webkit-background-clip:text;color:transparent;letter-spacing:1px;text-align:center;text-shadow:0 6px 24px rgba(255,123,123,0.06)}
+    .subtitle{font-size:15px;opacity:.9;margin-bottom:18px;color:rgba(255,255,255,0.9)}
+    
+    .cake{width:220px;height:190px;position:relative;margin-bottom:18px}
+    .tier{background:linear-gradient(180deg,#ffdede,#ffcfcf);border-radius:12px;padding:12px;box-shadow:0 8px 30px rgba(0,0,0,0.25)}
+    .tier.bottom{height:92px}
+    .tier.top{height:60px;margin-top:-18px}
+    .frost{height:18px;background:linear-gradient(90deg,var(--accent2),#fff);border-radius:8px;margin-top:6px}
+    .candles{position:absolute;left:50%;transform:translateX(-50%);top:-14px;display:flex;gap:8px}
+    .candle{width:10px;height:36px;border-radius:3px;background:linear-gradient(180deg,#fff,#ffdede);position:relative}
+    .flame{position:absolute;left:50%;top:-12px;transform:translateX(-50%);width:12px;height:16px;border-radius:50%;filter:drop-shadow(0 2px 10px rgba(255,160,60,0.5));animation:flame 900ms infinite alternate}
+    @keyframes flame{from{transform:translateX(-50%) scaleY(1)}to{transform:translateX(-50%) scaleY(1.08) translateY(-2px)}}
+
+    /* Right panel */
+    .panel{width:380px;display:flex;flex-direction:column;gap:16px;padding:10px}
+    .controls h3{margin:0;font-size:16px;color:#2d4a58}
+    .row{display:flex;gap:10px}
+    .btn{appearance:none;border:0;padding:11px 14px;border-radius:12px;background:linear-gradient(90deg,var(--accent),#ff9aa8);color:white;font-weight:600;cursor:pointer;box-shadow:0 8px 18px rgba(255,123,140,0.12);transition:transform .18s,box-shadow .18s}
+    .btn:hover{transform:translateY(-3px);box-shadow:0 14px 28px rgba(255,123,140,0.18)}
+    .btn.secondary{background:linear-gradient(90deg,#8bd3ff,#60a5fa)}
+    .btn.ghost{background:transparent;border:1px solid rgba(11,32,48,0.06);color:#0b2030}
+    .btn.small{padding:9px 12px;border-radius:10px;font-size:14px}
+
+    /* Message area displayed on left (modern, romantic) */
+    .message-wrap{width:100%;max-width:640px;margin-top:6px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:20px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 6px 20px rgba(3,6,23,0.18)}
+    .message-content{font-size:15px;line-height:1.65;color:#fff;text-align:left;white-space:pre-wrap}
+    .message-strap{display:block;margin-bottom:8px;color:#ffdce6;font-weight:600}
+
+    /* Confetti */
+    canvas.confetti{position:fixed;inset:0;pointer-events:none;z-index:999}
+
+    /* Balloons */
+    #balloon-area{position:absolute;inset:0;pointer-events:none}
+
+    /* small responsive */
+    @media (max-width:920px){
+      .card{flex-direction:column;padding:18px}
+      .panel{width:100%}
+      .scene{padding:18px}
+    }
+  </style>
+</head>
+<body>
+  <canvas class="confetti" id="confetti"></canvas>
+
+  <div class="wrap">
+    <div class="card" aria-label="Kartu ulang tahun Pacil modern">
+      <!-- Left scene with message shown directly -->
+      <div class="scene" role="region" aria-label="Scene ulang tahun">
+        <div class="glow" aria-hidden="true"></div>
+        <div class="title">HAPPY BIRTHDAY, PACIL</div>
+        <div class="subtitle">Semoga bahagia, sehat, dan semua impian tercapai 🎂</div>
+
+        <div class="cake" id="cake" aria-hidden="false">
+          <div class="candles" id="candles">
+            <div class="candle"><div class="flame" style="background:linear-gradient(180deg,#fff5b1,#ff8a3d)"></div></div>
+            <div class="candle"><div class="flame" style="background:linear-gradient(180deg,#fff5b1,#ff8a3d)"></div></div>
+            <div class="candle"><div class="flame" style="background:linear-gradient(180deg,#fff5b1,#ff8a3d)"></div></div>
+          </div>
+          <div class="tier bottom"></div>
+          <div class="tier top"><div class="frost"></div></div>
+        </div>
+
+        <!-- Message box (directly visible) -->
+        <div class="message-wrap" aria-live="polite">
+          <span class="message-strap">💌 Untuk Pacilku</span>
+          <div class="message-content" id="messageContent">
+💌 Untuk Pacilku Selamat ulang tahun, cintaku, orang paling istimewa di semesta kecilku 🌙✨
+
+Dua puluh dua tahun kamu hidup di dunia ini dan aku beruntung bisa jadi bagian kecil dari kisahmu. Terima kasih sudah selalu ada dengan senyum yang bikin hangat, candaan yang bikin nyaman, dan perhatian yang diam-diam selalu bikin aku jatuh cinta lagi, setiap hari.
+
+Semoga di usia barumu ini, semua langkahmu selalu dimudahkan, semua mimpi yang kamu kejar bisa kamu genggam satu per satu. Jangan pernah ragu sama dirimu sendiri, karena aku selalu percaya kamu bisa dan aku akan selalu di sini, jadi tempat pulang yang kamu bisa tuju kapan pun kamu butuh.
+
+Pacil, tetaplah jadi kamu yang tulus, lucu, dan penuh cahaya itu.
+Aku sayang kamu… lebih dari yang bisa dijelaskan kata-kata💞
+Love you my universe, more than yesterday and less than tomorrow 🤍
+          </div>
+        </div>
+
+        <div id="balloon-area" aria-hidden="true"></div>
+      </div>
+
+      <!-- Right controls -->
+      <div class="panel">
+        <div class="controls">
+          <h3>Kontrol Interaktif</h3>
+          <div class="row">
+            <button class="btn" id="playConfetti">🎉 Lepaskan Confetti</button>
+            <button class="btn secondary" id="balloonsBtn">🎈 Lepaskan Balon</button>
+          </div>
+
+          <div class="row" style="margin-top:6px">
+            <button class="btn ghost" id="blowOut">💨 Tiup Lilin</button>
+            <button class="btn ghost" id="resetBtn">🔁 Reset</button>
+          </div>
+
+          <div style="margin-top:12px">
+            <small style="color:#45606f">Pesan ditampilkan langsung — tidak perlu klik “kirim”.</small>
+          </div>
+
+          <div style="margin-top:12px" class="row">
+            <button class="btn small" id="copyBtn">📋 Salin Pesan</button>
+            <button class="btn small secondary" id="shareBtn">🔗 Salin HTML</button>
+          </div>
+
+          <p style="margin-top:10px;color:#6b8593;font-size:13px">Tip: Tiup lilin dulu, lalu lepaskan confetti untuk efek paling berkesan 🎊</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // confetti canvas setup
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    let W, H, particles = [];
+    function resize(){W = canvas.width = innerWidth; H = canvas.height = innerHeight}
+    addEventListener('resize', resize); resize();
+
+    function rnd(a,b){return Math.random()*(b-a)+a}
+    function makeConfetti(x,y){
+      for(let i=0;i<120;i++){
+        particles.push({
+          x: x || W/2,
+          y: y || H/3,
+          vx: rnd(-6,6),
+          vy: rnd(-10,2),
+          r: rnd(6,10),
+          rot: rnd(0,360),
+          vr: rnd(-8,8),
+          col: ['#ff7b9c','#ffd6a5','#c89bff','#8bd3ff'][Math.floor(rnd(0,4))]
+        });
+      }
+    }
+
+    function update(){
+      ctx.clearRect(0,0,W,H);
+      for(let i=particles.length-1;i>=0;i--){
+        const p = particles[i];
+        p.x += p.vx; p.y += p.vy; p.vy += 0.25; p.rot += p.vr*0.02;
+        ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180);
+        ctx.fillStyle = p.col; ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r*1.6);
+        ctx.restore();
+        if(p.y>H+80 || p.x<-120 || p.x>W+120) particles.splice(i,1);
+      }
+      requestAnimationFrame(update);
+    }
+    update();
+
+    // balloons
+    const balloonArea = document.getElementById('balloon-area');
+    function releaseBalloons(){
+      for(let i=0;i<8;i++){
+        const b = document.createElement('div');
+        b.className = 'balloon';
+        const size = 42 + Math.random()*60;
+        b.style.width = size + 'px';
+        b.style.height = (size*1.3) + 'px';
+        const left = 6 + Math.random()*88;
+        b.style.left = left + '%';
+        b.style.bottom = '-140px';
+        const hue = Math.floor(Math.random()*360);
+        b.style.background = `linear-gradient(180deg,hsl(${hue} 90% 65%), hsl(${hue} 70% 48%))`;
+        b.style.borderRadius = '50% 50% 48% 52%';
+        const s = document.createElement('div'); s.className='string'; b.appendChild(s);
+        balloonArea.appendChild(b);
+        const delay = Math.random()*700;
+        b.animate([
+          {transform:'translateY(0)', opacity:1},
+          {transform:'translateY(-120vh)', opacity:1}
+        ], {duration:3800+Math.random()*3200, delay, easing:'cubic-bezier(.1,.8,.2,1)'}).onfinish = ()=> b.remove();
+      }
+    }
+
+    // blow out candles
+    const blowOut = document.getElementById('blowOut');
+    const candles = document.getElementById('candles');
+    let blown = false;
+    blowOut.addEventListener('click', () => {
+      if(blown) return;
+      blown = true;
+      const gust = document.createElement('div');
+      gust.style.cssText = 'position:absolute;width:200px;height:90px;left:50%;top:50%;transform:translate(-50%,-30%);border-radius:50px;pointer-events:none;background:radial-gradient(circle, rgba(255,255,255,0.12), transparent 40%)';
+      document.body.appendChild(gust);
+      setTimeout(()=>gust.remove(),700);
+
+      [...candles.querySelectorAll('.flame')].forEach(f=>{
+        f.style.transition = 'transform .6s ease, opacity .6s ease';
+        f.style.transform = 'translateY(-8px) scaleY(0.28)';
+        f.style.opacity = '0';
+      });
+
+      for(let i=0;i<4;i++){
+        setTimeout(()=>{
+          const s = document.createElement('div');
+          s.style.position='absolute';
+          s.style.left = (50 - 20 + Math.random()*40) + '%';
+          s.style.top = '28%';
+          s.style.width = '12px';
+          s.style.height = '12px';
+          s.style.borderRadius = '50%';
+          s.style.background = 'rgba(200,200,200,0.5)';
+          document.body.appendChild(s);
+          s.animate([{opacity:1, transform:'translateY(0) scale(1)'}, {opacity:0, transform:'translateY(-40px) scale(1.5)'}], {duration:900, fill:'forwards'}).onfinish = ()=> s.remove();
+        }, i*180);
+      }
+    });
+
+    // buttons
+    document.getElementById('playConfetti').addEventListener('click', ()=> makeConfetti());
+    document.getElementById('balloonsBtn').addEventListener('click', ()=> releaseBalloons());
+    document.getElementById('resetBtn').addEventListener('click', ()=>{
+      particles = [];
+      document.querySelectorAll('.flame').forEach(f=>{ f.style.opacity='1'; f.style.transform='translateX(-50%)'; });
+      blown = false;
+    });
+
+    // copy message text
+    document.getElementById('copyBtn').addEventListener('click', async ()=>{
+      const text = document.getElementById('messageContent').innerText.trim();
+      try{
+        await navigator.clipboard.writeText(text);
+        alert('Pesan telah disalin ke clipboard.');
+      }catch(e){
+        prompt('Salin pesan ini (Ctrl/Cmd+A, Ctrl/Cmd+C):', text);
+      }
+    });
+
+    // share full HTML
+    document.getElementById('shareBtn').addEventListener('click', async ()=>{
+      const full = '<!-- Save as .html -->\n' + document.documentElement.outerHTML;
+      try{
+        await navigator.clipboard.writeText(full);
+        alert('HTML telah disalin ke clipboard — paste lalu simpan sebagai .html');
+      }catch(e){
+        prompt('Salin manual:', full);
+      }
+    });
+
+    // keyboard shortcuts
+    addEventListener('keydown', e=>{
+      if(e.key === ' ') { makeConfetti(); }
+      else if(e.key.toLowerCase() === 'b') { releaseBalloons(); }
+    });
+
+    // gentle initial confetti burst
+    setTimeout(()=> makeConfetti(innerWidth*0.6, innerHeight*0.4), 700);
+  </script>
+</body>
+</html>
