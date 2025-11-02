@@ -70,43 +70,31 @@
       .scene{padding:18px}
     }
 
-    /* Tombol Musik */
     #music-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #6fd471;
-      border: none;
-      border-radius: 30px;
-      padding: 12px 20px;
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s ease;
-    }
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #1DB954;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 20px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
 
-    #music-btn:hover {
-      background-color: #b3fcb5;
-      transform: scale(1.05);
-    }
+#music-btn:hover {
+  background-color: #1ed760;
+  transform: scale(1.05);
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
   </style>
 </head>
 <body>
 
   <canvas class="confetti" id="confetti"></canvas>
-
-<!-- Musik latar otomatis -->
-<audio id="bgmusic" autoplay loop>
-  <source src="https://docs.google.com/uc?export=download&id=17Jpr-ukOiWy6zcLUKkd9dhzsBIfOELk7" type="audio/mp3">
-  Browser kamu tidak mendukung audio tag.
-</audio>
-
 
   <div class="wrap">
     <div class="card" aria-label="Kartu ulang tahun Pacil modern">
@@ -166,7 +154,8 @@ Love you my universe, more than yesterday and less than tomorrow 🤍
 
           <p style="margin-top:10px;color:#6b8593;font-size:13px">Tips: Tiup lilin dulu, lalu lepaskan confetti🎊</p>
 
-          <button id="music-btn">🎵 Play Music</button>
+          <a href="https://spotify.link/mZOJWojnXXb" target="_blank" id="music-btn">🎧 Play on Spotify</a>
+
         </div>
       </div>
     </div>
@@ -309,22 +298,7 @@ Love you my universe, more than yesterday and less than tomorrow 🤍
     // gentle initial confetti burst
     setTimeout(()=> makeConfetti(innerWidth*0.6, innerHeight*0.4), 700);
 
-    //music
-    const music = document.getElementById('bgmusic');
-    const btn = document.getElementById('music-btn');
-    let playing = false;
 
-    btn.addEventListener('click', () => {
-      if (!playing) {
-        music.play();
-        btn.textContent = '⏸ Pause Music';
-        playing = true;
-      } else {
-        music.pause();
-        btn.textContent = '🎵 Play Music';
-        playing = false;
-      }
-    });
   </script>
 </body>
 </html>
