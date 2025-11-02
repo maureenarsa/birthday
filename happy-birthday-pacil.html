@@ -69,15 +69,44 @@
       .panel{width:100%}
       .scene{padding:18px}
     }
+
+    /* Tombol Musik */
+    #music-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #6fd471;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 20px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    #music-btn:hover {
+      background-color: #b3fcb5;
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
-  <!-- Pemutar musik -->
-  <audio id="bgmusic" autoplay loop>
-    <source src="https://docs.google.com/uc?export=download&id=1ZpIkcBHzUsfQmF9p89cU-2Hg0j3vppvY" type="audio/mp3">
-  </audio>
 
   <canvas class="confetti" id="confetti"></canvas>
+
+<!-- Pemutar Musik -->
+  <audio id="bgmusic" loop>
+    <!-- Ganti link di bawah dengan link MP3 kamu -->
+    <source src="https://drive.google.com/file/d/17Jpr-ukOiWy6zcLUKkd9dhzsBIfOELk7/view?usp=sharing type="audio/mp3">
+    Browser kamu tidak mendukung pemutar audio.
+  </audio>
 
   <div class="wrap">
     <div class="card" aria-label="Kartu ulang tahun Pacil modern">
@@ -136,6 +165,8 @@ Love you my universe, more than yesterday and less than tomorrow 🤍
           </div>
 
           <p style="margin-top:10px;color:#6b8593;font-size:13px">Tips: Tiup lilin dulu, lalu lepaskan confetti🎊</p>
+
+          <button id="music-btn">🎵 Play Music</button>
         </div>
       </div>
     </div>
@@ -277,6 +308,23 @@ Love you my universe, more than yesterday and less than tomorrow 🤍
 
     // gentle initial confetti burst
     setTimeout(()=> makeConfetti(innerWidth*0.6, innerHeight*0.4), 700);
+
+    //music
+    const music = document.getElementById('bgmusic');
+    const btn = document.getElementById('music-btn');
+    let playing = false;
+
+    btn.addEventListener('click', () => {
+      if (!playing) {
+        music.play();
+        btn.textContent = '⏸ Pause Music';
+        playing = true;
+      } else {
+        music.pause();
+        btn.textContent = '🎵 Play Music';
+        playing = false;
+      }
+    });
   </script>
 </body>
 </html>
